@@ -1,20 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Home - {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="home_header d-f jc-sb">
+        <div class="home_header_content">
+            <h1 class="home_header_content_title">Bienvenue</h1>
+            <p>Découvrez notre univers de produits durables et éthiques pour une consommation responsable</p>
+            <p>Retrouvez des articles d’hygiène & beauté, des accessoires & boissons et du prêt à porter</p>
+        </div>
+        <div>
+            <img src="{{ asset('/img/bienvenue.webp') }}" alt="image bienvenue">
+        </div>
+    </div>
+    <div class="home_product">
+        <p class="home_product_title">NOS PRODUITS</p>
+        <div class="d-f fw-w">
+            {% for product in products %}
+                <div class="product_card">
+                    <img src="{{ asset(product.photo) }}" alt="{{ product.name }}">
+                    <div class="product_content">
+                        <p class="product_content_name">{{ product.name }}</p>
+                        <p class="product_content_description">{{ product.shortDescription }}</p>
+                        <p class="product_content_price">{{ product.price ~ '€'}}</p>
+                        <a class="product_content_link" href="/product/{{ product.id }}">Voir le produit</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="home_conviction d-f jc-sb">
+        <div class="home_conviction_content">
+            <h2 class="home_conviction_content_title">NOTRE CONVICTION</h2>
+            <p>Chez GreenGoodies, nous croyons en un monde où le commerce peut être synonyme de bien-être pour la planète et ses habitants. Notre mission est de vous proposer une sélection rigoureuse de produits qui allient qualité, durabilité et éthique</p>
+        </div>
+        <div>
+            <img src="{{ asset('/img/conviction.webp') }}" alt="image conviction">
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/fenulaurent/Developpement/OC_PHP/P13_GreenGoodies/OCPHP13_GGNW/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/Users/fenulaurent/Developpement/OC_PHP/P13_GreenGoodies/OCPHP13_GGNW/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+    </div>
+    <div class="home_valeurs d-f jc-sb">
+        <div>
+            <img src="{{ asset('/img/valeurs.webp') }}" alt="image valeurs">
+        </div>
+        <div class="home_valeurs_content">
+            <h2 class="home_valeurs_content_title">NOS VALEURS</h2>
+            <p>Durabilité : Nous sélectionnons soigneusement des produits qui respectent l'environnement et favorisent la durabilité.</p>   
+            <p>Éthique : Nous nous engageons à travailler avec des partenaires et des fournisseurs qui partagent nos valeurs éthiques.</p>
+            <p>Écologie : Nous encourageons des pratiques respectueuses de l'écosystème et privilégions les matériaux écologiques.</p>
+        </div>
+    </div>   
 {% endblock %}

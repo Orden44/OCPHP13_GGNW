@@ -1,0 +1,18 @@
+<header class="header_container d-f jc-sb">
+    <div class="header_container_logo">
+        <a href="{{ path('app_home') }}"><img src="{{ asset('img/logo.png') }}" alt="Logo de Green Goodies" /></a>
+    </div>
+
+    <nav>
+        <ul class="header_container_ul d-f">
+            <li><a href="{{ path('app_product') }}">Nos produits</a></li>
+            {% if is_granted("ROLE_USER") %}
+                <li><a href="{{ path('app_cart') }}">Mon panier</a></li>
+                <li><a href="{{ path('app_user') }}">Mon compte</a></li>
+                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+            {% else %}
+                <li><a href="{{ path('app_login') }}">Connexion</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
