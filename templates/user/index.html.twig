@@ -1,20 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Mon compte - {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="account d-f fd-c">
+    <h1 class="account_title">Mon compte</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="account_content">
+        <h2 class="account_content_subtitle">Mes commandes</h2>
+        {% if orders == false %}
+            <p>Vous n'avez pas de commande.</p>
+        {% else %}
+            <table class="account_content_table">
+                <thead>
+                    <tr class="d-f jc-sb">
+                        <th class="account_content_table_th">N°</th>
+                        <th class="account_content_table_th">Date</th>
+                        <th class="account_content_table_th">Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr class="account_content_table_tr d-f jc-sb">
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.orderDate|date("d/m/Y")}}</td>
+                        <td>{{ order.totalPrice ~ ' €' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/fenulaurent/Developpement/OC_PHP/P13_GreenGoodies/OCPHP13_GGNW/src/Controller/UserController.php</code></li>
-        <li>Your template at <code>/Users/fenulaurent/Developpement/OC_PHP/P13_GreenGoodies/OCPHP13_GGNW/templates/user/index.html.twig</code></li>
-    </ul>
+    <div class="account_content">
+        <h2 class="account_content_subtitle">Mon accès API</h2>
+        <div class="d-f jc-c btn">
+            {% if app.user.apiEnabled == true %}
+                <a class="account_content_link" href="{{ path('app_user_api_disabled') }}">Désactiver mon accès API</a>
+            {% else %}
+                <a class="account_content_link"  href="{{ path('app_user_api_enabled') }}">Activer mon accès API</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="account_content">
+        <div class="d-f jc-c btn" onclick="return confirm('êtes-vous sûrs de vouloir supprimer votre compte ?')">
+            <a class="account_content_link"  href="{{ path('app_user_delete') }}">Supprimer mon compte</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
