@@ -16,7 +16,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        $products = $this->productRepository->findAll();
+        $products = $this->productRepository->findBy([], ['id' => 'DESC'], 6);
 
         return $this->render('home/index.html.twig', [
             'products' => $products,

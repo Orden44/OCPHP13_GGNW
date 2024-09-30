@@ -49,6 +49,7 @@ html, body {
     padding: 30px 183px;
     margin-bottom: 20px;
 }
+
 .main_container {
     background-color: var(--backgroundColorLight);
 }
@@ -129,7 +130,17 @@ html, body {
     text-align: center;
 }
 
-.product_content, .product_content_info {
+.product_card_detail {
+    margin-bottom: 50px;
+}
+
+.product_card_img {
+    width: 734px;
+    height: 686px;
+    object-fit: cover;
+}
+
+.product_content {
     margin: 20px
 }
 
@@ -143,10 +154,6 @@ html, body {
     margin-top: 5px;
 }
 
-.ld {
-    padding: 0 100px;
-}
-
 .product_content_price {
     margin-bottom: 30px;
 }
@@ -158,6 +165,25 @@ html, body {
 
 .product_content_cart {
     margin: 0 100px
+}
+
+.product_content_info {
+    margin: 20px 100px;
+}
+
+.product_content_info_title {
+    font-size: 10px;
+}
+
+.product_content_info_name {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.product_content_info_price {
+    font-size: 30px;
+    font-weight: 300;
+    margin: 20px 0 40px;
 }
 
 /* Connexion et inscription */
@@ -285,7 +311,8 @@ html, body {
     align-items: center;
     justify-content: center;
     padding: 10px 50px 50px; 
-    background: antiquewhite; 
+    background-color: var(--backgroundColorBrown);
+    height: 550px;
 }
 
 .error h1 {
