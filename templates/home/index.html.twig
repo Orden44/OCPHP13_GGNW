@@ -22,7 +22,7 @@
                     <div class="product_content">
                         <p class="product_content_name">{{ product.name }}</p>
                         <p class="product_content_description">{{ product.shortDescription }}</p>
-                        <p class="product_content_price">{{ product.price ~ '€'}}</p>
+                        <p class="product_content_price">{{ product.price|number_format(2, ',') ~ '€'}}</p>
                         <a class="product_content_link" href="/product/{{ product.id }}">Voir le produit</a>
                     </div>
                 </div>
