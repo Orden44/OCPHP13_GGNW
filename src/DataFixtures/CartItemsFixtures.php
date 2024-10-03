@@ -24,7 +24,7 @@ class CartItemsFixtures extends Fixture implements DependentFixtureInterface, Fi
             ->setByUser($this->getReference(UserFixtures::USER_4))
             ->setProduct($this->getReference(ProductFixtures::PRODUCT_8))
             ->setQuantity(2)
-            ->setUnitPrice($cartItems1->getQuantity()*$cartItems1->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_8)));
+            ->setUnitPrice($cartItems1->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_8)));
         $manager->persist($cartItems1);
         $this->addReference(self::CART_ITEMS_1, $cartItems1);  
 
@@ -33,7 +33,7 @@ class CartItemsFixtures extends Fixture implements DependentFixtureInterface, Fi
             ->setByUser($this->getReference(UserFixtures::USER_4))
             ->setProduct($this->getReference(ProductFixtures::PRODUCT_2))
             ->setQuantity(3)
-            ->setUnitPrice($cartItems2->getQuantity()*$cartItems2->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_2)));
+            ->setUnitPrice($cartItems2->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_2)));
         $manager->persist($cartItems2);
         $this->addReference(self::CART_ITEMS_2, $cartItems2);  
 
@@ -42,7 +42,7 @@ class CartItemsFixtures extends Fixture implements DependentFixtureInterface, Fi
             ->setByUser($this->getReference(UserFixtures::USER_4))
             ->setProduct($this->getReference(ProductFixtures::PRODUCT_5))
             ->setQuantity(1)
-            ->setUnitPrice($cartItems3->getQuantity()*$cartItems3->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_5)));
+            ->setUnitPrice($cartItems3->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_5)));
         $manager->persist($cartItems3);
         $this->addReference(self::CART_ITEMS_3, $cartItems3);  
 
@@ -51,7 +51,7 @@ class CartItemsFixtures extends Fixture implements DependentFixtureInterface, Fi
             ->setByUser($this->getReference(UserFixtures::USER_1))
             ->setProduct($this->getReference(ProductFixtures::PRODUCT_5))
             ->setQuantity(3)
-            ->setUnitPrice($cartItems4->getQuantity()*$cartItems4->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_5)));
+            ->setUnitPrice($cartItems4->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_5)));
         $manager->persist($cartItems4);
         $this->addReference(self::CART_ITEMS_4, $cartItems4);  
 
@@ -60,7 +60,7 @@ class CartItemsFixtures extends Fixture implements DependentFixtureInterface, Fi
             ->setByUser($this->getReference(UserFixtures::USER_3))
             ->setProduct($this->getReference(ProductFixtures::PRODUCT_9))
             ->setQuantity(1)
-            ->setUnitPrice($cartItems5->getQuantity()*$cartItems5->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_9)));
+            ->setUnitPrice($cartItems5->getProduct()->getPrice($this->getReference(ProductFixtures::PRODUCT_9)));
         $manager->persist($cartItems5);
         $this->addReference(self::CART_ITEMS_5, $cartItems5);  
 
