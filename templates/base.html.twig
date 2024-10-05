@@ -18,6 +18,20 @@
         {% include 'header.html.twig' %}
 
         <main class="main_container">
+            <div class="flash-messages">
+                {% for category, flashMessages in app.session.flashbag.all() %}
+                    {% for flashMessage in flashMessages %}
+                        {% if category == 'success' %}
+                            <div class="alert alert-success">{{ flashMessage }}</div>
+                        {% elseif category == 'warning' %}
+                            <div class="alert alert-warning">{{ flashMessage }}</div>
+                        {% elseif category == 'danger' %}
+                            <div class="alert alert-danger">{{ flashMessage }}</div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}            
+            </div>
+
             {% block body %}{% endblock %}
         </main>
 

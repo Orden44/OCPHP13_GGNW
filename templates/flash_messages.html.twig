@@ -1,0 +1,19 @@
+{% if successMessage is defined %}
+    <div class="alert alert-success">
+        {% for message in app.flashes('success') %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% elseif dangerMessage is defined  %}
+    <div class="alert alert-danger">
+        {% for message in app.flashes('danger') %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% elseif warningMessage is defined  %}
+    <div class="alert alert-warning">
+        {% for message in app.flashes('warning') %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}

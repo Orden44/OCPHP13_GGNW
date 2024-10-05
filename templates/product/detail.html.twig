@@ -9,14 +9,36 @@
             <div class="product_content_detail d-f fd-c jc-sb">
                 <div class="product_content_info">
                     <p class="product_content_info_name">{{ product.name }}</p>
-                    <p class="product_content_info_price">{{ product.price ~ '€'}}</p>
+                    <p class="product_content_info_price">{{ product.price|number_format(2, ',') ~ '€'}}</p>
                     <p class="product_content_info_title">Description</p>
                     <p class="product_content_description">{{ product.description }}</p>
                 </div>
 
-                <div class="product_content_cart d-f jc-c btn">
-                    <a class="account_content_link"  href="{{ path('app_cart') }}">Ajouter au panier</a>
-                </div>
+                {% if is_granted("ROLE_USER") %}
+                    {% if productInCart == true %}
+                        <form class="product_content_form" action="{{ path('app_cart_update', {'id': product.id}) }}" method="post"> 
+                            <div class="product_content_form_quantity">
+                                <input type="number" id="quantity" name="quantity" value="{{ productQuantity }}" min="0">
+                            </div>
+                            <div class="product_content_form_btn">
+                                <button type="submit" class="product_content_form_title">Mettre à jour</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <form class="product_content_form" action="{{ path('app_cart_add', {'id': product.id}) }}" method="post"> 
+                            <div class="product_content_form_quantity">
+                                <input type="number" id="quantity" name="quantity" value="1" min="1">
+                            </div>
+                            <div class="product_content_form_btn">
+                                <button type="submit" class="product_content_form_title">Ajouter au panier</button>
+                            </div>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <div class="product_content_cart_login">
+                        <a class="account_content_link"  href="{{ path('app_login') }}">Se connecter</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>      

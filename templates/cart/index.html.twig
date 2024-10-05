@@ -1,20 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}Mon panier - {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="cart d-f fd-c">
+        <h1 class="cart_title">Mon panier</h1>
+        {% include 'flash_messages.html.twig' %}
+        
+        {% if cart is not empty %}
+            <div class="cart_empty">
+                <a href="{{ path('app_cart_empty') }}" onclick="return confirm('Êtes-vous sûr de vouloir vider votre panier ? Tous les articles seront supprimés !')">X Vider le panier</a>
+            </div>
+        {% else %}
+            <p class="cart_msg">Votre panier est vide</p>
+        {% endif %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/fenulaurent/Developpement/OC_PHP/P13_GreenGoodies/OCPHP13_GGNW/src/Controller/CartController.php</code></li>
-        <li>Your template at <code>/Users/fenulaurent/Developpement/OC_PHP/P13_GreenGoodies/OCPHP13_GGNW/templates/cart/index.html.twig</code></li>
-    </ul>
-</div>
+        <div class="cart_content d-f fd-c">
+            <div class="d-f jc-sb fw-w">
+                {% for cartItem in cart %}
+                    <div class="cart_product d-f">
+                        <img class="cart_product_img" src="{{ asset(cartItem.product.photo) }}" alt="image d'un produit du panier">
+                        <div class="cart_product_content">
+                            <p class="cart_product_content_title">{{ cartItem.product.name }}</p>
+                            <p class="cart_product_content_quantity">Quantité : {{ cartItem.quantity }}</p>
+                            <p class="cart_product_content_price">{{ cartItem.unitPrice|number_format(2, ',') ~ '€' }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="cart_totalPrice">
+                <p class="cart_totalPrice_title">Total panier : {{ totalPrice|number_format(2, ',') ~ '€' }}</p>
+                <p>Frais de livraison : Offert</p>
+            </div>
+            <div class="cart_order d-f jc-c btn">
+                <a href="{{ path('app_order') }}">Valider la commande</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
