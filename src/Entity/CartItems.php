@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CartItemsRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
+use App\Repository\CartItemsRepository;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: CartItemsRepository::class)]
+// #[ApiResource]
 class CartItems
 {
     #[ORM\Id]

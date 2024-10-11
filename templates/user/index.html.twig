@@ -34,11 +34,22 @@
 
     <div class="account_content">
         <h2 class="account_content_subtitle">Mon accès API</h2>
-        <div class="d-f jc-c btn">
+        <div class="d-f jc-c fd-c">
             {% if app.user.apiEnabled == true %}
-                <a class="account_content_link" href="{{ path('app_user_api_disabled') }}">Désactiver mon accès API</a>
+                <div class="d-f btn jc-c">
+                    <a class="account_content_link" href="{{ path('app_user_api_disabled') }}">Désactiver mon accès API</a>
+                </div>
+                <div class="d-f btn jc-c">
+                    <a class="account_content_link" target="_blank" href="/api/doc">Accèder à l'API</a>    
+                    {# <form action="{{ path('app_api_login') }}" method="POST">
+                        <input type="submit" value="Accéder à l'API">
+                    </form> #}
+
+                </div>
             {% else %}
-                <a class="account_content_link"  href="{{ path('app_user_api_enabled') }}">Activer mon accès API</a>
+                <div class="d-f btn jc-c">
+                    <a class="account_content_link"  href="{{ path('app_user_api_enabled') }}">Activer mon accès API</a>
+                </div>
             {% endif %}
         </div>
     </div>

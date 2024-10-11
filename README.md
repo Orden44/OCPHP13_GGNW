@@ -25,9 +25,7 @@ Pour installer l'application localement, suivez les étapes ci-dessous :
 
 Pour configurer l'application, vous devez modifier le fichier `.env`. Remplacez les variables suivantes selon votre environnement :
 
-
 DATABASE_URL=mysql://user:password@localhost:port/database_name
-
 
 N'oubliez pas de remplacer `user`, `password`, `localhost`, `port` et `database_name` par les valeurs correspondantes.
 
@@ -35,16 +33,13 @@ N'oubliez pas de remplacer `user`, `password`, `localhost`, `port` et `database_
 
 Pour démarrer l'application, exécutez la commande suivante :
 
-
 symfony serve
 
 Cela lancera le serveur Symfony et vous pourrez accéder à l'application en ouvrant votre navigateur Web à l'adresse `http://localhost:8000`.
 
 Pour créer la base de données avec des données de démonstration, vous pouvez exécuter les fixtures en utilisant la commande suivante :
 
-
 php bin/console doctrine:fixtures:load
-
 
 Cela chargera les données prédéfinies dans la base de données et vous permettra de tester l'application avec des exemples concrets.
 
