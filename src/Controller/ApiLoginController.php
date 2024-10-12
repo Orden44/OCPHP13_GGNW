@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use OpenApi\Attributes as OA;
 use App\Repository\UserRepository;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -11,7 +13,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
-use OpenApi\Attributes as OA;
 
 
 class ApiLoginController extends AbstractController
@@ -23,7 +24,38 @@ class ApiLoginController extends AbstractController
         $this->jwtEncoder = $jwtEncoder;
     }
 
-    #[Route('/api/login2', name: 'app_api_login', methods: ['POST'])]
+    #[Route('/api/login', name: 'app_api_login', methods: ['POST'])]
+    #[OA\Post(
+        path: "api/login",
+        summary: "Permet d'obtenir le token JWT pour se logger.",
+        description: "Crée un nouveau token JWT",
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                type: "object",
+                properties: [
+                    new OA\Property(property: "username", type: "string", default: "orden@gmail.com"),
+                    new OA\Property(property: "password", type: "string", default: "Motdepasse")
+                ]
+            )
+        ),
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'Récupère le token JWT',
+                content: new OA\JsonContent(
+                    type: "object",
+                    properties: [
+                        new OA\Property(property: "token", type: "string", example: "your_jwt_token_here")
+                    ]
+                )
+            ),
+            new OA\Response(response: 401, description: "Invalid credentials"),
+            new OA\Response(response: 400, description: "Bad Request")
+        ],
+        tags: ["Login"]
+    )]
+    #[Security(name: null)]
     #[OA\Response(
         response: 200,
         description: 'Récupère le token JWT'
@@ -32,7 +64,6 @@ class ApiLoginController extends AbstractController
     public function login(SerializerInterface $serializer, Request $request, UserRepository $userRepository): Response 
     {
         $user = $serializer->deserialize($request->getContent(), User::class, "json");
-        // dd($user);
         $storedUser = $userRepository->findOneBy(['email' => $user->getEmail()]);
         if (!$storedUser || !password_verify($user->getPassword(), $storedUser->getPassword())) {
             return new JsonResponse(['message' => 'Identifiants incorrects'], Response::HTTP_UNAUTHORIZED);
