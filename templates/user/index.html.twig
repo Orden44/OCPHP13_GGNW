@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="account d-f fd-c">
+    <h1 class="account_title">Mon compte</h1>
+
+    <div class="account_content">
+        <h2 class="account_content_subtitle">Mes commandes</h2>
+        {% if orders == false %}
+            <p>Vous n'avez pas de commande.</p>
+        {% else %}
+            <table class="account_content_table">
+                <thead>
+                    <tr class="d-f jc-sb">
+                        <th class="account_content_table_th">N°</th>
+                        <th class="account_content_table_th">Date</th>
+                        <th class="account_content_table_th">Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr class="account_content_table_tr d-f jc-sb">
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.orderDate|date("d/m/Y")}}</td>
+                        <td>{{ order.totalPrice ~ ' €' }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+
+    <div class="account_content">
+        <h2 class="account_content_subtitle">Mon accès API</h2>
+        <div class="d-f jc-c fd-c">
+            {% if app.user.apiEnabled == true %}
+                <div class="d-f btn jc-c">
+                    <a class="account_content_link" href="{{ path('app_user_api_disabled') }}">Désactiver mon accès API</a>
+                </div>
+                <div class="d-f btn jc-c">
+                    <a class="account_content_link" target="_blank" href="/api/doc">Accèder à l'API</a>    
+                </div>
+            {% else %}
+                <div class="d-f btn jc-c">
+                    <a class="account_content_link"  href="{{ path('app_user_api_enabled') }}">Activer mon accès API</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="account_content">
+        <div class="d-f jc-c btn" onclick="return confirm('êtes-vous sûrs de vouloir supprimer votre compte ?')">
+            <a class="account_content_link"  href="{{ path('app_user_delete') }}">Supprimer mon compte</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

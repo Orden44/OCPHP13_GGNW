@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="login d-f jc-sb">
+        <div>
+            <img class="login_img" src="{{ asset('/img/conviction.webp') }}" alt="image connexion">
+        </div>
+
+        <form class="login_form d-f fd-c" method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+            {% endif %}
+
+            <h1 class="login_form_title">Connexion</h1>
+            <label for="username">Adresse email</label>
+            <input type="email" value="{{ last_username }}" name="_username" id="username" class="form_control" autocomplete="email" required autofocus>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="_password" id="password" class="form_control" autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn" type="submit">Se connecter</button>
+
+            <a class="login_form_registration" href="{{ path('app_register') }}">Pas encore de compte ? S'inscrire</a>
+        </form>
+    <div>
+{% endblock %}
