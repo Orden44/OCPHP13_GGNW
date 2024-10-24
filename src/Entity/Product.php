@@ -4,14 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
-// #[ApiResource]
 class Product
 {
     #[ORM\Id]
@@ -24,21 +23,23 @@ class Product
     #[Groups("getProduct")]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Groups("getProduct")]
-    private ?string $photo = null;
-
     #[ORM\Column(length: 255)]
     #[Groups("getProduct")]
     private ?string $shortDescription = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[SerializedName("fullDescription")]
     #[Groups("getProduct")]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     #[Groups("getProduct")]
     private ?string $price = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[SerializedName("picture")]
+    #[Groups("getProduct")]
+    private ?string $photo = null;
 
     /**
      * @var Collection<int, CartItems>
